@@ -8,19 +8,23 @@ function App() {
   const { stickers } = useContext(StickersContext);
   console.log(stickers.list);
   return (
-    <section className="container main-section">
-      <Sidebar />
-      <main className="cards-section">
-        {stickers.list &&
-          stickers.list.map((item: any) => (
-            <Card
-              key={item.id}
-              content={item.text}
-              color={item.color}
-              id={item.id}
-            />
-          ))}
-      </main>
+    <section className="main-section">
+      <div className="container">
+        <main className="main-section__content">
+          <Sidebar />
+          <div className="cards-section">
+            {stickers.list &&
+              stickers.list.map((item: any) => (
+                <Card
+                  key={item.id}
+                  content={item.text}
+                  color={item.color}
+                  id={item.id}
+                />
+              ))}
+          </div>
+        </main>
+      </div>
     </section>
   );
 }
