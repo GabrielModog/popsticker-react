@@ -104,7 +104,7 @@ button:focus-visible {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 20px;
   width: 300px;
   height: 154px;
@@ -133,12 +133,35 @@ button:focus-visible {
   &__actions {
     display: flex;
     justify-content: space-between;
-    padding: 4px;
+    align-items: center;
+    padding: 0 16px;
+    height: 30px;
+
     & > button {
-      font-size: 12px;
+      width: 14px;
+      height: 14px;
       background: none;
       color: $color-dark;
+      padding: 0;
+      margin-bottom: 8px;
+      &:hover {
+        outline: none;
+        border: none;
+      }
+      &:focus, &:focus-visible {
+        outline: none;
+        border: none;
+      }
+      img {
+        width: 16px;
+        height: 16px;
+      }
     }
+  }
+
+  &__default {
+    color: $color-light;
+    background-color: $color-dark;
   }
 
   &__blue {
@@ -180,7 +203,7 @@ button:focus-visible {
   border-right: 1px solid $color-gray2;
 
   & > h3 {
-    font-weight: 800;
+    font-weight: 900;
     font-size: 12px;
     margin: 0.5rem 0;
   }
@@ -233,4 +256,30 @@ button:focus-visible {
   padding: 0;
   font-weight: 800;
   margin: 1rem 0;
+}
+
+.sticker-border {
+  &__blue {
+    border: 1px solid $color-blue;
+  }
+
+  &__red {
+    border: 1px solid $color-red;
+  }
+
+  &__yellow {
+    border: 1px solid $color-yellow;
+  }
+
+  &__green {
+    border: 1px solid $color-green;
+  }
+
+  &__orange {
+    border: 1px solid $color-orange;
+  }
+
+  &__black {
+    border: 1px solid $color-dark;
+  }
 }

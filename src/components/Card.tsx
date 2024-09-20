@@ -2,6 +2,10 @@ import { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
 import { StickersContext } from "../contexts/StickersContext";
 import { appendClasses } from "../utils/classes";
 
+import AddIcon from "../assets/save.svg";
+import DeleteIcon from "../assets/trash.svg";
+import CancelIcon from "../assets/x.svg";
+
 interface CardProps {
   id: string;
   content: string;
@@ -53,7 +57,12 @@ export default function Card(props: CardProps) {
 
   if (isEditing) {
     return (
-      <div className={appendClasses("card", `card__${color}`)}>
+      <div className={
+        appendClasses(
+          "card card-default",
+          `sticker-border__${color}`
+        )
+      }>
         <textarea
           value={textContent}
           onKeyDown={handleKeydown}
@@ -61,13 +70,13 @@ export default function Card(props: CardProps) {
         />
         <div className="card__actions">
           <button type="button" onClick={deleteSticker}>
-            delete
+            <img src={DeleteIcon} alt="delete action" />
           </button>
           <button type="button" onClick={exitEditing}>
-            cancel
+            <img src={CancelIcon} alt="delete action" />
           </button>
           <button type="button" onClick={saveSticker}>
-            save
+            <img src={AddIcon} alt="delete action" />
           </button>
         </div>
       </div>

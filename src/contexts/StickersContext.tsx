@@ -62,13 +62,13 @@ const initialState = {
   list: [
     {
       id: "1-card",
-      text: "spodfklopsdkfopsdf",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec convallis ex.",
       color: "blue",
     },
     {
       id: "2-card",
-      text: "psodkfopsdkfdsf",
-      color: "red",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec convallis ex.",
+      color: "green",
     },
   ],
 };

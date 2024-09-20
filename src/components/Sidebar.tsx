@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { StickersContext } from "../contexts/StickersContext";
 import { appendClasses } from "../utils/classes";
 
-const colors = ["blue", "red", "yellow", "orange", "green", "black"];
+const colors = ["blue", "green", "yellow", "orange", "red", "black"];
 
 interface AddStickerButtonProps {
   color: string;
