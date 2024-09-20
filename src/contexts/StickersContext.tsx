@@ -8,7 +8,8 @@ type StickerState = {
 };
 
 type StickerAction =
-  | { type: "set_list", payload: any }
+  | { type: "set_list"; payload: any }
+  | { type: "select_sticker"; payload: any }
   | { type: "add_to_list"; payload: any }
   | { type: "change_sticker"; payload: any }
   | { type: "remove_from_list"; payload: string }
@@ -27,20 +28,29 @@ const stickersReducer = (
   switch (action.type) {
     case "set_list":
       return {
-        list: action.payload
-      }
+        list: action.payload,
+      };
+    case "select_sticker":
+      return {
+        list: state.list.map((sticker) => {
+          if (sticker.id === action.payload) return {
+            ...sticker,
+            selected: true
+          }
+          return { ...sticker, selected: false }
+        })
+      };
     case "add_to_list":
       return {
         list: [...state.list, action.payload],
       };
     case "change_sticker":
       return {
-        list: state.list.map(sticker => {
-          if (sticker.id === action.payload.id)
-            return action.payload.sticker
-          return sticker
-        })
-      }
+        list: state.list.map((sticker) => {
+          if (sticker.id === action.payload.id) return action.payload.sticker;
+          return sticker;
+        }),
+      };
     case "remove_from_list":
       return {
         list: state.list.filter((sticker) => sticker.id !== action.payload),
@@ -60,6 +70,7 @@ const stickersReducer = (
 
 const initialState = {
   list: [],
+  selectedSticker: null,
 };
 
 export function StickersProvider({ children }: any) {
@@ -70,7 +81,7 @@ export function StickersProvider({ children }: any) {
       type: "add_to_list",
       payload: Object.assign(sticker, {
         // never do this in production!
-        id: Math.random().toString(16).substring(2, 15)
+        id: Math.random().toString(16).substring(2, 15),
       }),
     });
   }
@@ -78,8 +89,8 @@ export function StickersProvider({ children }: any) {
   function removeSticker(id: string) {
     dispatch({
       type: "remove_from_list",
-      payload: id
-    })
+      payload: id,
+    });
   }
 
   function changeStickerColor({ id, color }: any) {
@@ -95,8 +106,15 @@ export function StickersProvider({ children }: any) {
   function changeSticker({ id, sticker }: any) {
     dispatch({
       type: "change_sticker",
-      payload: { id, sticker }
+      payload: { id, sticker },
     });
+  }
+
+  function selectSticker(id: any) {
+    dispatch({
+      type: "select_sticker",
+      payload: id
+    })
   }
 
   const contextValue: any = {
@@ -105,6 +123,7 @@ export function StickersProvider({ children }: any) {
     removeSticker,
     changeSticker,
     changeStickerColor,
+    selectSticker,
   };
 
   return (

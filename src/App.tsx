@@ -22,6 +22,7 @@ function App() {
                   content={item.text}
                   color={item.color}
                   id={item.id}
+                  selected={item.selected}
                 />
               ))}
           </div>

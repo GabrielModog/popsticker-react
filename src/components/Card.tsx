@@ -10,13 +10,13 @@ interface CardProps {
   id: string;
   content: string;
   color: string;
+  selected: boolean
 }
 
 export default function Card(props: CardProps) {
-  const { id, content, color } = props;
-  const { changeSticker, removeSticker } = useContext(StickersContext);
+  const { id, content, color, selected } = props;
+  const { selectSticker, changeSticker, removeSticker } = useContext(StickersContext);
 
-  const [isEditing, setIsEditing] = useState(false);
   const [textContent, setTextContent] = useState(content);
 
   function onTextareaChange(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -24,12 +24,12 @@ export default function Card(props: CardProps) {
   }
 
   function handleOnClick() {
-    setIsEditing(true);
+    selectSticker(id)
   }
 
   function exitEditing() {
     setTextContent(content);
-    setIsEditing(false);
+    selectSticker(null)
   }
 
   function deleteSticker() {
@@ -41,7 +41,7 @@ export default function Card(props: CardProps) {
       id,
       sticker: {
         text: textContent,
-        color: "blue",
+        color,
       },
     });
   }
@@ -55,7 +55,7 @@ export default function Card(props: CardProps) {
     if (event.key === "Escape") return exitEditing();
   }
 
-  if (isEditing) {
+  if (selected) {
     return (
       <div className={
         appendClasses(
