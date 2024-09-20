@@ -41,6 +41,7 @@ export default function Card(props: CardProps) {
     changeSticker({
       id,
       sticker: {
+        id,
         text: textContent,
         color,
       },
