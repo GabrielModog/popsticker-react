@@ -1,5 +1,6 @@
 import { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
 import { StickersContext } from "../contexts/StickersContext";
+import { appendClasses } from "../utils/classes";
 
 interface CardProps {
   id: string;
@@ -8,27 +9,27 @@ interface CardProps {
 }
 
 export default function Card(props: CardProps) {
-  const { id, content } = props;
-  const { changeSticker, removeSticker } = useContext(StickersContext)
+  const { id, content, color } = props;
+  const { changeSticker, removeSticker } = useContext(StickersContext);
 
-  const [isEditing, setIsEditing] = useState(false)
-  const [textContent, setTextContent] = useState(content)
+  const [isEditing, setIsEditing] = useState(false);
+  const [textContent, setTextContent] = useState(content);
 
   function onTextareaChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    setTextContent(event.target.value)
+    setTextContent(event.target.value);
   }
 
   function handleOnClick() {
-    setIsEditing(true)
+    setIsEditing(true);
   }
 
   function exitEditing() {
-    setTextContent(content)
-    setIsEditing(false)
+    setTextContent(content);
+    setIsEditing(false);
   }
 
   function deleteSticker() {
-    removeSticker(id)
+    removeSticker(id);
   }
 
   function saveSticker() {
@@ -37,41 +38,47 @@ export default function Card(props: CardProps) {
       sticker: {
         text: textContent,
         color: "blue",
-      }
-    })
+      },
+    });
   }
 
-  function handleKeydown(event: KeyboardEvent<HTMLTextAreaElement>){
-    event.stopPropagation()
-    if(event.key === "Enter")
-      return saveSticker()
-    
-    if(event.key === "Delete")
-      return deleteSticker()
+  function handleKeydown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    event.stopPropagation();
+    if (event.key === "Enter") return saveSticker();
 
-    if(event.key === "Escape")
-      return exitEditing()
+    if (event.key === "Delete") return deleteSticker();
+
+    if (event.key === "Escape") return exitEditing();
   }
 
   if (isEditing) {
-    return <div className="card card-default">
-      <textarea value={textContent} onKeyDown={handleKeydown} onChange={onTextareaChange} />
-      <div className="card__actions">
-        <button type="button" onClick={deleteSticker}>
-          delete
-        </button>
-        <button type="button" onClick={exitEditing}>
-          cancel
-        </button>
-        <button type="button" onClick={saveSticker}>
-          save
-        </button>
+    return (
+      <div className={appendClasses("card", `card__${color}`)}>
+        <textarea
+          value={textContent}
+          onKeyDown={handleKeydown}
+          onChange={onTextareaChange}
+        />
+        <div className="card__actions">
+          <button type="button" onClick={deleteSticker}>
+            delete
+          </button>
+          <button type="button" onClick={exitEditing}>
+            cancel
+          </button>
+          <button type="button" onClick={saveSticker}>
+            save
+          </button>
+        </div>
       </div>
-    </div>
+    );
   }
 
   return (
-    <div className="card card-default" onClick={handleOnClick}>
+    <div
+      className={appendClasses("card", `card__${color}`)}
+      onClick={handleOnClick}
+    >
       <p className="card__content">{content}</p>
     </div>
   );

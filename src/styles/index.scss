@@ -104,7 +104,6 @@ button:focus-visible {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  color: $color-dark;
   font-weight: 400;
   font-size: 20px;
   width: 300px;
@@ -141,6 +140,36 @@ button:focus-visible {
       color: $color-dark;
     }
   }
+
+  &__blue {
+    color: $color-light;
+    background-color: $color-blue;
+  }
+
+  &__red {
+    color: $color-light;
+    background-color: $color-red;
+  }
+
+  &__yellow {
+    color: $color-dark;
+    background-color: $color-yellow;
+  }
+
+  &__green {
+    color: $color-dark;
+    background-color: $color-green;
+  }
+
+  &__orange {
+    color: $color-light;
+    background-color: $color-orange;
+  }
+
+  &__black {
+    color: $color-light;
+    background-color: $color-dark;
+  }
 }
 
 .sidebar {
@@ -161,6 +190,30 @@ button:focus-visible {
   width: 16px;
   height: 16px;
   padding: 0;
+
+  &__blue {
+    background-color: $color-blue;
+  }
+
+  &__red {
+    background-color: $color-red;
+  }
+
+  &__yellow {
+    background-color: $color-yellow;
+  }
+
+  &__green {
+    background-color: $color-green;
+  }
+
+  &__orange {
+    background-color: $color-orange;
+  }
+
+  &__black {
+    background-color: $color-dark;
+  }
 
   &__list {
     display: flex;

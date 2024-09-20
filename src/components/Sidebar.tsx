@@ -1,15 +1,26 @@
 import { useContext } from "react";
 import { StickersContext } from "../contexts/StickersContext";
+import { appendClasses } from "../utils/classes";
 
-const colors = ["blue", "red", "yellow", "green", "black"];
+const colors = ["blue", "red", "yellow", "orange", "green", "black"];
 
 interface AddStickerButtonProps {
+  color: string;
   onClick: () => void;
 }
 
 function AddStickerButton(props: AddStickerButtonProps) {
-  const { onClick } = props;
-  return <button type="button" className="sticker-button" onClick={onClick} />;
+  const { color, onClick } = props;
+  return (
+    <button
+      type="button"
+      className={appendClasses(
+        "sticker-button",
+        `sticker-button__${color}`
+      )}
+      onClick={onClick}
+    />
+  );
 }
 
 export default function Sidebar() {
@@ -26,6 +37,7 @@ export default function Sidebar() {
         {colors.map((color) => (
           <AddStickerButton
             key={color}
+            color={color}
             onClick={() => {
               addSticker({
                 text: "<insert_text_here>",
