@@ -156,6 +156,20 @@ button:focus-visible {
     margin: 0.5rem 0;
   }
 }
+.sticker-button {
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+    flex-grow: 1;
+  }
+}
 
 .add-button {
   border-radius: 32rem;

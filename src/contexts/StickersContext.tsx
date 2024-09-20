@@ -36,7 +36,7 @@ const stickersReducer = (
     case "change_sticker":
       return {
         list: state.list.map(sticker => {
-          if(sticker.id === action.payload.id) 
+          if (sticker.id === action.payload.id)
             return action.payload.sticker
           return sticker
         })
@@ -79,11 +79,14 @@ export function StickersProvider({ children }: any) {
   function addSticker(sticker: any) {
     dispatch({
       type: "add_to_list",
-      payload: sticker,
+      payload: Object.assign(sticker, {
+        // never do this in production!
+        id: Math.random().toString(16).substring(2, 15)
+      }),
     });
   }
 
-  function removeSticker(id: string){
+  function removeSticker(id: string) {
     dispatch({
       type: "remove_from_list",
       payload: id
