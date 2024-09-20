@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useContext, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useContext, useEffect, useRef, useState } from "react";
 import { StickersContext } from "../contexts/StickersContext";
 import { appendClasses } from "../utils/classes";
 
@@ -18,6 +18,7 @@ export default function Card(props: CardProps) {
   const { selectSticker, changeSticker, removeSticker } = useContext(StickersContext);
 
   const [textContent, setTextContent] = useState(content);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
 
   function onTextareaChange(event: ChangeEvent<HTMLTextAreaElement>) {
     setTextContent(event.target.value);
@@ -55,6 +56,12 @@ export default function Card(props: CardProps) {
     if (event.key === "Escape") return exitEditing();
   }
 
+  useEffect(() => {
+    if(selected) {
+      textareaRef.current?.focus()
+    }
+  }, [selected])
+
   if (selected) {
     return (
       <div className={
@@ -64,9 +71,14 @@ export default function Card(props: CardProps) {
         )
       }>
         <textarea
+          ref={textareaRef}
           value={textContent}
           onKeyDown={handleKeydown}
           onChange={onTextareaChange}
+          onFocus={(e) => e.currentTarget.setSelectionRange(
+            e.currentTarget.value.length,
+            e.currentTarget.value.length,
+          )}
         />
         <div className="card__actions">
           <button type="button" onClick={deleteSticker}>
