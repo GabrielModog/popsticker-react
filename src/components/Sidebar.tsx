@@ -25,6 +25,15 @@ function AddStickerButton(props: AddStickerButtonProps) {
 
 export default function Sidebar() {
   const { addSticker } = useContext(StickersContext);
+
+  function handleAddSticker(color: string){
+    addSticker({
+      text: "<insert_text_here>",
+      color: color,
+      selected: true
+    });
+  }
+
   return (
     <aside className="sidebar">
       <h3>
@@ -38,12 +47,7 @@ export default function Sidebar() {
           <AddStickerButton
             key={color}
             color={color}
-            onClick={() => {
-              addSticker({
-                text: "<insert_text_here>",
-                color: color,
-              });
-            }}
+            onClick={() => handleAddSticker(color)}
           />
         ))}
       </div>
