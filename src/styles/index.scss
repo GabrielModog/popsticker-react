@@ -67,6 +67,13 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.empty-list-title {
+  font-weight: 800;
+  font-size: 36px;
+  text-align: center;
+  color: $color-gray2;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -97,6 +104,7 @@ button:focus-visible {
   gap: 1rem;
   align-items: flex-start;
   justify-content: center;
+  flex: 1;
 }
 
 .card {

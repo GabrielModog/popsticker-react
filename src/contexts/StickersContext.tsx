@@ -59,18 +59,7 @@ const stickersReducer = (
 };
 
 const initialState = {
-  list: [
-    {
-      id: "1-card",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec convallis ex.",
-      color: "blue",
-    },
-    {
-      id: "2-card",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec convallis ex.",
-      color: "green",
-    },
-  ],
+  list: [],
 };
 
 export function StickersProvider({ children }: any) {
