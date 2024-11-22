@@ -5,6 +5,7 @@ import { appendClasses } from "../utils/classes";
 import AddIcon from "../assets/save.svg";
 import DeleteIcon from "../assets/trash.svg";
 import CancelIcon from "../assets/x.svg";
+import Tooltip from "./Tooltip";
 
 interface CardProps {
   id: string;
@@ -58,7 +59,7 @@ export default function Card(props: CardProps) {
   }
 
   useEffect(() => {
-    if(selected) {
+    if (selected) {
       textareaRef.current?.focus()
     }
   }, [selected])
@@ -68,11 +69,11 @@ export default function Card(props: CardProps) {
       <div
         onBlur={saveSticker}
         className={
-        appendClasses(
-          "card card-default",
-          `sticker-border__${color}`
-        )
-      }>
+          appendClasses(
+            "card card-default",
+            `sticker-border__${color}`
+          )
+        }>
         <textarea
           ref={textareaRef}
           value={textContent}
@@ -84,15 +85,21 @@ export default function Card(props: CardProps) {
           )}
         />
         <div className="card__actions">
-          <button type="button" onClick={deleteSticker}>
-            <img src={DeleteIcon} alt="delete action" />
-          </button>
-          <button type="button" onClick={exitEditing}>
-            <img src={CancelIcon} alt="delete action" />
-          </button>
-          <button type="button" onClick={saveSticker}>
-            <img src={AddIcon} alt="delete action" />
-          </button>
+          <Tooltip text="Deletar [delete]">
+            <button type="button" onClick={deleteSticker}>
+              <img src={DeleteIcon} alt="delete action" />
+            </button>
+          </Tooltip>
+          <Tooltip text="Cancel [esc]">
+            <button type="button" onClick={exitEditing}>
+              <img src={CancelIcon} alt="delete action" />
+            </button>
+          </Tooltip>
+          <Tooltip text="Save [enter]">
+            <button type="button" onClick={saveSticker}>
+              <img src={AddIcon} alt="delete action" />
+            </button>
+          </Tooltip>
         </div>
       </div>
     );
