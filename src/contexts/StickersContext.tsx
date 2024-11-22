@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext, useReducer } from "react";
+import { createContext, useMemo, useReducer } from "react";
 
 export const StickersContext = createContext<any>(null);
 
@@ -117,14 +117,14 @@ export function StickersProvider({ children }: any) {
     })
   }
 
-  const contextValue: any = {
+  const contextValue: any = useMemo(() => ({
     stickers: state,
     addSticker,
     removeSticker,
     changeSticker,
     changeStickerColor,
     selectSticker,
-  };
+  }), [state])
 
   return (
     <StickersContext.Provider value={contextValue}>
