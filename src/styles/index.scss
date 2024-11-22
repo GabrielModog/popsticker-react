@@ -1,12 +1,9 @@
-$color-red: #f63636;
-$color-blue: #3a36f6;
-$color-green: #36f69a;
-$color-orange: #f69e36;
-$color-yellow: #f2f636;
-$color-dark: #2d2d38;
-$color-gray: #a0a0bb;
-$color-gray2: #dddde2;
-$color-light: #ffffff;
+@import "colors";
+
+@mixin card-theme($text: $color-gray2, $bg: $color-dark) {
+  color: $text;
+  background-color: $bg;
+}
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -32,11 +29,11 @@ html {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: $color-purple;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: $color-purple2;
 }
 
 body {
@@ -156,7 +153,8 @@ button:focus-visible {
         outline: none;
         border: none;
       }
-      &:focus, &:focus-visible {
+      &:focus,
+      &:focus-visible {
         outline: none;
         border: none;
       }
@@ -168,38 +166,31 @@ button:focus-visible {
   }
 
   &__default {
-    color: $color-light;
-    background-color: $color-dark;
+    @include card-theme($text: $color-light, $bg: $color-dark);
   }
 
   &__blue {
-    color: $color-light;
-    background-color: $color-blue;
+    @include card-theme($text: $color-light, $bg: $color-blue);
   }
 
   &__red {
-    color: $color-light;
-    background-color: $color-red;
+    @include card-theme($text: $color-light, $bg: $color-red);
   }
 
   &__yellow {
-    color: $color-dark;
-    background-color: $color-yellow;
+    @include card-theme($text: $color-dark, $bg: $color-yellow);
   }
 
   &__green {
-    color: $color-dark;
-    background-color: $color-green;
+    @include card-theme($text: $color-dark, $bg: $color-green);
   }
 
   &__orange {
-    color: $color-light;
-    background-color: $color-orange;
+    @include card-theme($text: $color-light, $bg: $color-orange);
   }
 
   &__black {
-    color: $color-light;
-    background-color: $color-dark;
+    @include card-theme($text: $color-light, $bg: $color-dark);
   }
 }
 
