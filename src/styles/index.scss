@@ -132,7 +132,9 @@ button:focus-visible {
   }
 
   &__content {
+    display: inline;
     padding: 1rem;
+    text-wrap: pretty;
   }
 
   &__actions {
@@ -142,7 +144,7 @@ button:focus-visible {
     padding: 0 16px;
     height: 30px;
 
-    & > button {
+    button {
       width: 14px;
       height: 14px;
       background: none;
@@ -281,5 +283,23 @@ button:focus-visible {
 
   &__black {
     border: 1px solid $color-dark;
+  }
+}
+
+.tooltip {
+  position: relative;
+  width: inherit;
+  &__content {
+    position: absolute;
+    z-index: 22;
+    border-radius: 4px;
+    position: absolute;
+    text-align: center;
+    padding: .2rem .4rem;
+    top: -40px;
+    left: -15px;
+    font-size: 10px;
+    font-weight: 600;
+    @include card-theme;
   }
 }
