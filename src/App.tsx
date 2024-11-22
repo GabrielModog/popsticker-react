@@ -14,7 +14,8 @@ function App() {
           <Sidebar />
           <div className="cards-section">
             {!stickers.list ||
-              (stickers.list.length === 0 && <h3 className="empty-list-title">Nothing here yet...</h3>)}
+              (stickers.list.length === 0 
+                && <h3 className="empty-list-title">Nothing here yet...</h3>)}
             {stickers.list &&
               stickers.list.map((item: any) => (
                 <Card

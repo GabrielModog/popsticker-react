@@ -65,7 +65,9 @@ export default function Card(props: CardProps) {
 
   if (selected) {
     return (
-      <div className={
+      <div
+        onBlur={saveSticker}
+        className={
         appendClasses(
           "card card-default",
           `sticker-border__${color}`
