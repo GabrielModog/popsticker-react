@@ -35,7 +35,7 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="sidebar">
+    <nav className="sidebar">
       <h3>
         Pop
         <br />
@@ -51,6 +51,6 @@ export default function Sidebar() {
           />
         ))}
       </div>
-    </aside>
+    </nav>
   );
 }

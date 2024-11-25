@@ -40,7 +40,11 @@ a:hover {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -74,15 +78,8 @@ button:focus-visible {
   color: $color-gray2;
 }
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
 .main-section {
-  &__content {
+  &__container {
     display: flex;
     flex-direction: row;
     height: 580px;
@@ -91,6 +88,12 @@ button:focus-visible {
     min-width: 366px;
     background-color: $color-light;
     border-radius: 8px;
+    overflow: hidden;
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
 }
 
@@ -118,20 +121,6 @@ button:focus-visible {
     grid-template-columns: repeat(3, $card-width);
   }
 }
-
-// flexbox version
-// .cards-section {
-//   overflow-y: auto;
-//   margin: 2rem;
-//   padding: 2rem 4rem;
-//   display: flex;
-//   flex-direction: row;
-//   flex-wrap: wrap;
-//   gap: 1rem;
-//   align-items: flex-start;
-//   justify-content: center;
-//   flex: 1;
-// }
 
 .card {
   display: flex;
