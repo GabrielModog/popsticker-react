@@ -6,7 +6,7 @@ import Card from "./components/Card";
 
 function App() {
   const { stickers } = useContext(StickersContext);
-  console.log(stickers.list);
+  // console.log(stickers.list);
   return (
     <section className="main-section">
       <div className="container">

@@ -1,4 +1,12 @@
-import { ChangeEvent, KeyboardEvent, useContext, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  KeyboardEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { StickersContext } from "../contexts/StickersContext";
 import { appendClasses } from "../utils/classes";
 
@@ -11,27 +19,28 @@ interface CardProps {
   id: string;
   content: string;
   color: string;
-  selected: boolean
+  selected: boolean;
 }
 
 export default function Card(props: CardProps) {
   const { id, content, color, selected } = props;
-  const { selectSticker, changeSticker, removeSticker } = useContext(StickersContext);
+  const { selectSticker, changeSticker, removeSticker } =
+    useContext(StickersContext);
 
   const [textContent, setTextContent] = useState(content);
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   function onTextareaChange(event: ChangeEvent<HTMLTextAreaElement>) {
     setTextContent(event.target.value);
   }
 
   function handleOnClick() {
-    selectSticker(id)
+    selectSticker(id);
   }
 
   function exitEditing() {
     setTextContent(content);
-    selectSticker(null)
+    selectSticker(null);
   }
 
   function deleteSticker() {
@@ -58,31 +67,39 @@ export default function Card(props: CardProps) {
     if (event.key === "Escape") return exitEditing();
   }
 
+  function handleOnBlur(event: FocusEvent<HTMLTextAreaElement>) {
+    if (event.relatedTarget?.closest(".card__actions button")) return;
+    saveSticker();
+  }
+
   useEffect(() => {
     if (selected) {
-      textareaRef.current?.focus()
+      textareaRef.current?.focus();
     }
-  }, [selected])
+  }, [selected]);
 
   if (selected) {
     return (
       <div
-        onBlur={saveSticker}
-        className={
-          appendClasses(
-            "card card-default",
-            `sticker-border__${color}`
-          )
-        }>
+        id="card-item"
+        className={appendClasses(
+          "card card-default",
+          `sticker-border__${color}`
+        )}
+      >
         <textarea
+          id="card-textarea"
           ref={textareaRef}
+          onBlur={handleOnBlur}
           value={textContent}
           onKeyDown={handleKeydown}
           onChange={onTextareaChange}
-          onFocus={(e) => e.currentTarget.setSelectionRange(
-            e.currentTarget.value.length,
-            e.currentTarget.value.length,
-          )}
+          onFocus={(e) =>
+            e.currentTarget.setSelectionRange(
+              e.currentTarget.value.length,
+              e.currentTarget.value.length
+            )
+          }
         />
         <div className="card__actions">
           <Tooltip text="Deletar [delete]">
