@@ -4,6 +4,7 @@ import { StickersContext } from "./contexts/StickersContext";
 import Sidebar from "./components/Sidebar";
 
 import CardList from "./components/CardList";
+import SearchInput from "./components/SearchInput";
 
 function App() {
   const { stickers } = useContext(StickersContext);
@@ -13,6 +14,7 @@ function App() {
       <div className="main-section__container">
         <Sidebar />
         <section className="main-section__content">
+          <SearchInput />
           <CardList
             list={stickers.list}
           />

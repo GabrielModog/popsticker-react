@@ -83,17 +83,51 @@ button:focus-visible {
     display: flex;
     flex-direction: row;
     height: 580px;
-    width: 1260px;
-    max-width: calc(100% - 20px);
+    width: calc(100% + 4rem);
     min-width: 366px;
     background-color: $color-light;
     border-radius: 8px;
     overflow: hidden;
+    
+    @media (width >= 1260px) {
+      width: 1260px;
+    }
   }
   &__content {
     display: flex;
     flex-direction: column;
+    align-items: center;
     flex: 1;
+  }
+}
+
+.search-input {
+  padding: 1rem;
+
+  input {
+    color: $color-dark;
+    border: none;
+    background-color: transparent;
+    appearance: none;
+    font-size: 12px;
+    font-weight: 300;
+    width: 100%;
+    max-width: 200px;
+    padding: 5px 5px 5px 1rem;
+    outline: none;
+  }
+
+  label {
+    z-index: 50;
+    font-size: 12px;
+    margin-right: 8px;
+  }
+
+  &__container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 2rem 0;
   }
 }
 
