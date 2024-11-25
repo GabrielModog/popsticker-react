@@ -31,6 +31,7 @@ export default function Card(props: CardProps) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   function onTextareaChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    if(event.target.value.length >= 90) return
     setTextContent(event.target.value);
   }
 
@@ -60,6 +61,9 @@ export default function Card(props: CardProps) {
 
   function handleKeydown(event: KeyboardEvent<HTMLTextAreaElement>) {
     event.stopPropagation();
+
+    // const isFocused = document.activeElement === textareaRef.current
+
     if (event.key === "Enter") return saveSticker();
 
     if (event.key === "Delete") return deleteSticker();
