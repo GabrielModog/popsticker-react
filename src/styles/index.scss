@@ -1,5 +1,8 @@
 @import "colors";
 
+$card-width: 300px;
+$card-height: 154px;
+
 @mixin card-theme($text: $color-gray2, $bg: $color-dark) {
   color: $text;
   background-color: $bg;
@@ -91,18 +94,44 @@ button:focus-visible {
   }
 }
 
+// grid-based version
 .cards-section {
-  overflow-y: auto;
-  margin: 2rem;
-  padding: 2rem 4rem;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(1, $card-width);
+  grid-template-rows: repeat(2, $card-height);
+  grid-auto-rows: $card-height;
+  grid-auto-flow: dense;
   gap: 1rem;
-  align-items: flex-start;
+
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  overflow-y: auto;
+
+  width: 100%;
   justify-content: center;
-  flex: 1;
+
+  @media (width >= 746px) {
+    grid-template-columns: repeat(2, $card-width);
+  }
+
+  @media (width >= 1052px) {
+    grid-template-columns: repeat(3, $card-width);
+  }
 }
+
+// flexbox version
+// .cards-section {
+//   overflow-y: auto;
+//   margin: 2rem;
+//   padding: 2rem 4rem;
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+//   gap: 1rem;
+//   align-items: flex-start;
+//   justify-content: center;
+//   flex: 1;
+// }
 
 .card {
   display: flex;
@@ -111,8 +140,8 @@ button:focus-visible {
   overflow: hidden;
   font-weight: 300;
   font-size: 20px;
-  width: 300px;
-  height: 154px;
+  // width: 300px;
+  // height: 154px;
   border-radius: 12px;
   -webkit-box-shadow: 0px 2px 57px -14px rgba(45, 45, 56, 0.2);
   -moz-box-shadow: 0px 2px 57px -14px rgba(45, 45, 56, 0.2);
