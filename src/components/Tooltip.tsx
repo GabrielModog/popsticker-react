@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react"
+import { FocusEvent, ReactNode, useState } from "react"
 
 interface TooltipProps {
   text: string
@@ -11,7 +11,8 @@ export default function Tooltip(props: TooltipProps) {
   function onMouseOver(){
     setHovered(true)
   }
-  function onBlur(){
+  function onBlur(event: FocusEvent<HTMLDivElement>){
+    event.stopPropagation()
     setHovered(false)
   }
   function onMouseLeave(){
