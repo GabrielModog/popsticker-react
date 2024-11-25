@@ -9,6 +9,9 @@ export default function SearchInput(props: SearchInputProps) {
   const { doSearch, clearSearch } = props;
   const [text, setText] = useState("");
   function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
+    if(event.target.value.trim() === "") 
+      return handleClearSearch()
+
     setText(event.target.value);
     doSearch(event.target.value);
   }
