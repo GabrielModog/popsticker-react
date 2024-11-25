@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext, useMemo, useReducer } from "react";
+import { createContext, useMemo, useReducer, useState } from "react";
 
 export const StickersContext = createContext<any>(null);
 
@@ -14,12 +14,12 @@ type StickerAction =
   | { type: "change_sticker"; payload: any }
   | { type: "remove_from_list"; payload: string }
   | {
-    type: "change_color";
-    payload: {
-      color: string;
-      id: string;
+      type: "change_color";
+      payload: {
+        color: string;
+        id: string;
+      };
     };
-  };
 
 const stickersReducer = (
   state: StickerState,
@@ -33,12 +33,13 @@ const stickersReducer = (
     case "select_sticker":
       return {
         list: state.list.map((sticker) => {
-          if (sticker.id === action.payload) return {
-            ...sticker,
-            selected: true
-          }
-          return { ...sticker, selected: false }
-        })
+          if (sticker.id === action.payload)
+            return {
+              ...sticker,
+              selected: true,
+            };
+          return { ...sticker, selected: false };
+        }),
       };
     case "add_to_list":
       return {
@@ -75,6 +76,7 @@ const initialState = {
 
 export function StickersProvider({ children }: any) {
   const [state, dispatch] = useReducer(stickersReducer, initialState);
+  const [temp, setTemp] = useState<any[]>([]);
 
   function addSticker(sticker: any) {
     dispatch({
@@ -113,18 +115,48 @@ export function StickersProvider({ children }: any) {
   function selectSticker(id: any) {
     dispatch({
       type: "select_sticker",
-      payload: id
-    })
+      payload: id,
+    });
   }
 
-  const contextValue: any = useMemo(() => ({
-    stickers: state,
-    addSticker,
-    removeSticker,
-    changeSticker,
-    changeStickerColor,
-    selectSticker,
-  }), [state])
+  function searchForCard(searchText: string) {
+    if (temp.length === 0) {
+      setTemp(state.list);
+    }
+
+    const filtered = state.list.filter(
+      (item) =>
+        item.id.includes(searchText) ||
+        item.text.includes(searchText) ||
+        item.color.includes(searchText)
+    );
+
+    dispatch({
+      type: "set_list",
+      payload: filtered,
+    });
+  }
+
+  function clearSearch() {
+    dispatch({
+      type: "set_list",
+      payload: temp,
+    });
+  }
+
+  const contextValue: any = useMemo(
+    () => ({
+      stickers: state,
+      addSticker,
+      removeSticker,
+      changeSticker,
+      changeStickerColor,
+      selectSticker,
+      searchForCard,
+      clearSearch,
+    }),
+    [state]
+  );
 
   return (
     <StickersContext.Provider value={contextValue}>
