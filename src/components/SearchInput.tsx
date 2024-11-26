@@ -25,7 +25,7 @@ export default function SearchInput(props: SearchInputProps) {
       <input
         id="searchInput"
         type="text"
-        placeholder="Search"
+        placeholder="Search (ex: color or text)"
         value={text}
         onChange={handleOnChange}
       />

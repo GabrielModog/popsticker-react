@@ -28,9 +28,9 @@ export default function Sidebar() {
 
   function handleAddSticker(color: string){
     addSticker({
-      text: "<insert_text_here>",
+      text: "<click_to_edit>",
       color: color,
-      selected: true
+      selected: false,
     });
   }
 

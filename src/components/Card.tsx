@@ -47,6 +47,17 @@ export default function Card(props: CardProps) {
   function deleteSticker() {
     removeSticker(id);
   }
+  
+  function clearStickerContent() {
+    changeSticker({
+      id,
+      sticker: {
+        id,
+        text: "",
+        color,
+      },
+    });
+  }
 
   function saveSticker() {
     changeSticker({
@@ -81,6 +92,16 @@ export default function Card(props: CardProps) {
       textareaRef.current?.focus();
     }
   }, [selected]);
+
+  useEffect(() => {
+    let timeout = setTimeout(() => {
+      setTextContent("");
+      clearStickerContent()
+    }, 600);
+    return () => {
+      clearTimeout(timeout);
+    }
+  }, []);
 
   if (selected) {
     return (
