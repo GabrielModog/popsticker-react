@@ -82,7 +82,7 @@ button:focus-visible {
     display: flex;
     flex-direction: row;
     height: 580px;
-    width: calc(100% + 4rem);
+    width: 100%;
     min-width: 366px;
     background-color: $color-light;
     border-radius: 8px;
@@ -140,6 +140,8 @@ button:focus-visible {
   gap: 1rem;
 
   margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   padding-bottom: 1rem;
   overflow-y: auto;
 
