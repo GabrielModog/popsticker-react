@@ -111,6 +111,10 @@ export function StickersProvider({ children }: any) {
       payload: { id, sticker },
     });
   }
+  
+  function toogleStickerSelection(sticker) {
+    changeSticker({id: sticker.id, sticker: {...sticker, selected: !sticker.selected}})  
+  }
 
   function selectSticker(id: any) {
     dispatch({
@@ -154,6 +158,7 @@ export function StickersProvider({ children }: any) {
       selectSticker,
       searchForCard,
       clearSearch,
+      toogleStickerSelection,
     }),
     [state]
   );

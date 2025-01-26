@@ -8,7 +8,7 @@ export default function CardList(props: CardListProps) {
   const { list } = props;
   return (
     <article className="cards-section">
-      {list &&
+     {list &&
         list.map((item: any) => (
           <Card
             key={item.id}

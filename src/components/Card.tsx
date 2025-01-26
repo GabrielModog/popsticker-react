@@ -27,6 +27,8 @@ export default function Card(props: CardProps) {
   const { selectSticker, changeSticker, removeSticker } =
     useContext(StickersContext);
 
+  const cardRef = useRef<HTMLDivElement | null>(null)
+
   const [textContent, setTextContent] = useState(content);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -45,7 +47,11 @@ export default function Card(props: CardProps) {
   }
 
   function deleteSticker() {
-    removeSticker(id);
+    cardRef.current.classList.add("card__closing")
+    setTimeout(() => {
+      removeSticker(id);
+      cardRef.current.classList.remove("card__closing")
+    }, 300)
   }
   
   function clearStickerContent() {
@@ -97,7 +103,7 @@ export default function Card(props: CardProps) {
     let timeout = setTimeout(() => {
       setTextContent("");
       clearStickerContent()
-    }, 600);
+    }, 400);
     return () => {
       clearTimeout(timeout);
     }
@@ -107,6 +113,7 @@ export default function Card(props: CardProps) {
     return (
       <div
         id="card-item"
+        ref={cardRef}
         className={appendClasses(
           "card card-default",
           `sticker-border__${color}`
@@ -149,7 +156,8 @@ export default function Card(props: CardProps) {
 
   return (
     <div
-      className={appendClasses("card", `card__${color}`)}
+      ref={cardRef}
+      className={appendClasses("card", `card__${color} card__appear`)}
       onClick={handleOnClick}
     >
       <p className="card__content">{content}</p>
