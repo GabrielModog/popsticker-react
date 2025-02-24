@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useMemo, useReducer, useState } from "react";
+import { StickerItem } from "../types";
 
 export const StickersContext = createContext<any>(null);
 
 type StickerState = {
-  list: any[];
+  list: StickerItem[];
 };
 
 type StickerAction =
-  | { type: "set_list"; payload: any }
-  | { type: "select_sticker"; payload: any }
-  | { type: "add_to_list"; payload: any }
-  | { type: "change_sticker"; payload: any }
+  | { type: "set_list"; payload: StickerItem[] }
+  | { type: "select_sticker"; payload: string }
+  | { type: "add_to_list"; payload: StickerItem }
+  | { type: "change_sticker"; payload: { id: string, sticker: StickerItem } }
   | { type: "remove_from_list"; payload: string }
   | {
       type: "change_color";
@@ -74,11 +75,15 @@ const initialState = {
   selectedSticker: null,
 };
 
-export function StickersProvider({ children }: any) {
-  const [state, dispatch] = useReducer(stickersReducer, initialState);
-  const [temp, setTemp] = useState<any[]>([]);
+interface StickersProviderProps {
+  children: React.ReactNode | React.ReactElement | React.ReactPortal | null | undefined
+}
 
-  function addSticker(sticker: any) {
+export function StickersProvider({ children }: StickersProviderProps) {
+  const [state, dispatch] = useReducer(stickersReducer, initialState);
+  const [temp, setTemp] = useState<StickerItem[]>([]);
+
+  function addSticker(sticker: StickerItem) {
     dispatch({
       type: "add_to_list",
       payload: Object.assign(sticker, {
@@ -95,7 +100,7 @@ export function StickersProvider({ children }: any) {
     });
   }
 
-  function changeStickerColor({ id, color }: any) {
+  function changeStickerColor({ id, color }: { id: string, color: string }) {
     dispatch({
       type: "change_color",
       payload: {
@@ -105,18 +110,18 @@ export function StickersProvider({ children }: any) {
     });
   }
 
-  function changeSticker({ id, sticker }: any) {
+  function changeSticker({ id, sticker }: {id: string, sticker: StickerItem }) {
     dispatch({
       type: "change_sticker",
       payload: { id, sticker },
     });
   }
   
-  function toogleStickerSelection(sticker) {
+  function toogleStickerSelection(sticker: StickerItem) {
     changeSticker({id: sticker.id, sticker: {...sticker, selected: !sticker.selected}})  
   }
 
-  function selectSticker(id: any) {
+  function selectSticker(id: string) {
     dispatch({
       type: "select_sticker",
       payload: id,

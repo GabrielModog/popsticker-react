@@ -14,13 +14,9 @@ import AddIcon from "../assets/save.svg";
 import DeleteIcon from "../assets/trash.svg";
 import CancelIcon from "../assets/x.svg";
 import Tooltip from "./Tooltip";
+import { StickerItem } from "../types";
 
-interface CardProps {
-  id: string;
-  content: string;
-  color: string;
-  selected: boolean;
-}
+interface CardProps extends StickerItem {}
 
 export default function Card(props: CardProps) {
   const { id, content, color, selected } = props;
@@ -47,10 +43,10 @@ export default function Card(props: CardProps) {
   }
 
   function deleteSticker() {
-    cardRef.current.classList.add("card__closing")
+    cardRef.current?.classList.add("card__closing")
     setTimeout(() => {
       removeSticker(id);
-      cardRef.current.classList.remove("card__closing")
+      cardRef.current?.classList.remove("card__closing")
     }, 300)
   }
   
