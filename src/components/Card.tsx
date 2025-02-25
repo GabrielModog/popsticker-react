@@ -16,20 +16,20 @@ import CancelIcon from "../assets/x.svg";
 import Tooltip from "./Tooltip";
 import { StickerItem } from "../types";
 
-interface CardProps extends StickerItem {}
+type CardProps = StickerItem
 
 export default function Card(props: CardProps) {
-  const { id, content, color, selected } = props;
+  const { id, text, color, selected } = props;
   const { selectSticker, changeSticker, removeSticker } =
     useContext(StickersContext);
 
   const cardRef = useRef<HTMLDivElement | null>(null)
 
-  const [textContent, setTextContent] = useState(content);
+  const [textContent, setTextContent] = useState(text);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   function onTextareaChange(event: ChangeEvent<HTMLTextAreaElement>) {
-    if(event.target.value.length >= 90) return
+    if (event.target.value.length >= 90) return
     setTextContent(event.target.value);
   }
 
@@ -38,7 +38,7 @@ export default function Card(props: CardProps) {
   }
 
   function exitEditing() {
-    setTextContent(content);
+    setTextContent(textContent);
     selectSticker(null);
   }
 
@@ -49,7 +49,7 @@ export default function Card(props: CardProps) {
       cardRef.current?.classList.remove("card__closing")
     }, 300)
   }
-  
+
   function clearStickerContent() {
     changeSticker({
       id,
@@ -95,15 +95,15 @@ export default function Card(props: CardProps) {
     }
   }, [selected]);
 
-  useEffect(() => {
-    let timeout = setTimeout(() => {
-      setTextContent("");
-      clearStickerContent()
-    }, 400);
-    return () => {
-      clearTimeout(timeout);
-    }
-  }, []);
+  //useEffect(() => {
+  //  let timeout = setTimeout(() => {
+  //    setTextContent("");
+  //    clearStickerContent()
+  //  }, 400);
+  //  return () => {
+  //    clearTimeout(timeout);
+  //  }
+  //}, []);
 
   if (selected) {
     return (
@@ -152,11 +152,12 @@ export default function Card(props: CardProps) {
 
   return (
     <div
+      tabIndex={0}
       ref={cardRef}
       className={appendClasses("card", `card__${color} card__appear`)}
       onClick={handleOnClick}
     >
-      <p className="card__content">{content}</p>
+      <p className="card__content">{textContent}</p>
     </div>
   );
 }

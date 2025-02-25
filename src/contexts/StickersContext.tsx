@@ -15,12 +15,12 @@ type StickerAction =
   | { type: "change_sticker"; payload: { id: string, sticker: StickerItem } }
   | { type: "remove_from_list"; payload: string }
   | {
-      type: "change_color";
-      payload: {
-        color: string;
-        id: string;
-      };
+    type: "change_color";
+    payload: {
+      color: string;
+      id: string;
     };
+  };
 
 const stickersReducer = (
   state: StickerState,
@@ -84,12 +84,12 @@ export function StickersProvider({ children }: StickersProviderProps) {
   const [temp, setTemp] = useState<StickerItem[]>([]);
 
   function addSticker(sticker: StickerItem) {
+    // never do this in production!
+    const id = Math.random().toString(16).substring(2, 15)
+
     dispatch({
       type: "add_to_list",
-      payload: Object.assign(sticker, {
-        // never do this in production!
-        id: Math.random().toString(16).substring(2, 15),
-      }),
+      payload: Object.assign(sticker, { id }),
     });
   }
 
@@ -110,15 +110,15 @@ export function StickersProvider({ children }: StickersProviderProps) {
     });
   }
 
-  function changeSticker({ id, sticker }: {id: string, sticker: StickerItem }) {
+  function changeSticker({ id, sticker }: { id: string, sticker: StickerItem }) {
     dispatch({
       type: "change_sticker",
       payload: { id, sticker },
     });
   }
-  
+
   function toogleStickerSelection(sticker: StickerItem) {
-    changeSticker({id: sticker.id, sticker: {...sticker, selected: !sticker.selected}})  
+    changeSticker({ id: sticker.id, sticker: { ...sticker, selected: !sticker.selected } })
   }
 
   function selectSticker(id: string) {
@@ -151,6 +151,7 @@ export function StickersProvider({ children }: StickersProviderProps) {
       type: "set_list",
       payload: temp,
     });
+    setTemp([])
   }
 
   const contextValue: any = useMemo(

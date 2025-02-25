@@ -171,6 +171,10 @@ button:focus-visible {
   -moz-box-shadow: 0px 2px 57px -14px rgba(45, 45, 56, 0.2);
   box-shadow: 0px 2px 57px -14px rgba(45, 45, 56, 0.2);
 
+  &:focus {
+    opacity: 0.8;
+  }
+
   &__appear {
     animation: appear 600ms linear;
 

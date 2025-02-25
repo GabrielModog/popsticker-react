@@ -12,7 +12,7 @@ export default function CardList(props: CardListProps) {
         list.map((item: any) => (
           <Card
             key={item.id}
-            content={item.text}
+            text={item.text}
             color={item.color}
             id={item.id}
             selected={item.selected}
