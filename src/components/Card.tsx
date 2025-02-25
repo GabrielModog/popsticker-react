@@ -50,16 +50,16 @@ export default function Card(props: CardProps) {
     }, 300)
   }
 
-  function clearStickerContent() {
-    changeSticker({
-      id,
-      sticker: {
-        id,
-        text: "",
-        color,
-      },
-    });
-  }
+  //function clearStickerContent() {
+  //  changeSticker({
+  //    id,
+  //    sticker: {
+  //      id,
+  //      text: "",
+  //      color,
+  //    },
+  //  });
+  //}
 
   function saveSticker() {
     changeSticker({
